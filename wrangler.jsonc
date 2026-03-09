@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "umami",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-03-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "DATABASE_TYPE": "postgresql"
+  },
+  "containers": [
+    {
+      "class_name": "UmamiContainer",
+      "image": "./Dockerfile"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "UMAMI_CONTAINER",
+        "class_name": "UmamiContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "new_sqlite_classes": ["UmamiContainer"],
+      "tag": "v1"
+    }
+  ]
+}
